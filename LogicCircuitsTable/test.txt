@@ -1,0 +1,16 @@
+circuit(ZZ).
+
+gate(A,input,0,1).
+gate(B,input,0,1).
+gate(C,input,0,1).
+gate(?,output,1,0).
+gate(i1,inv,1,1).
+gate(o1,or,2,1).
+gate(na1,nand,2,1).
+
+wire(A,1,i1,1).
+wire(B,1,o1,1).
+wire(C,1,o1,2).
+wire(i1,1,na1,1).
+wire(o1,1,na1,2).
+wire(na1,1,?,1).
