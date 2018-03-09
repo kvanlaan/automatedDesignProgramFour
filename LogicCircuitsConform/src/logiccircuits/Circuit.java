@@ -108,12 +108,12 @@ public class Circuit {
         if (gates.size() < 1) {
             er.add("Circuit is missing gates");
         }
-        // Constraint : Circuit has >= 1 wire
+        // Constraint 3: Circuit has >= 1 wire
         if (wires.size() < 1) {
             er.add("Circuit is missing wires");
         }
 
-        // Constraint 3: All wires are properly connected
+        // Constraint 4: All wires are properly connected
         wires.stream().forEach(wire -> {
             if (wire.to == null || wire.from == null) {
                 er.add("Wire is missing either a to or from pin");
@@ -129,12 +129,12 @@ public class Circuit {
             } 
         });
         
-        // Constraint 4: Circuit has >= 1 input pins
+        // Constraint 5: Circuit has >= 1 input pins
         if (inputGates.size() < 1) {
             er.add("Circuit is missing an input gate");
         }
 
-        // Constraint 5: Circuit has >= 1 output pins
+        // Constraint 6: Circuit has >= 1 output pins
         if (outputGates.size() < 1) {
             er.add("Circuit is missing an output gate");
         }
