@@ -1,8 +1,11 @@
 package logiccircuits;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedList;
 import PrologDB.*;
+import java.util.HashSet;
+
 public class Circuit {
 
     String name;
@@ -16,7 +19,7 @@ public class Circuit {
         gates = new LinkedList<>();
         wires = new LinkedList<>();
     }
-    
+
     public int getGateNum(String type) {
         switch (type) {
             case "and":
@@ -33,7 +36,7 @@ public class Circuit {
                 return -1;
         }
     }
-    
+
     public void addOneGate(String type) {
         switch (type) {
             case "and":
@@ -53,10 +56,10 @@ public class Circuit {
                 break;
         }
     }
-            
+
     public void print() {
         System.out.println("printing circuit tables...");
-        
+
         System.out.println("Gates:");
         gates.stream().forEach(gate -> {
             if (!gate.type.equals("input") && !gate.type.equals("output")) {
@@ -68,21 +71,77 @@ public class Circuit {
                 gate.print();
             }
         });
-        
+
         System.out.println("\nWires:");
         wires.stream().forEach(wire -> {
             wire.print();
         });
     }
-    public void validate() {
-        // call logicConform logic here
 
+    public void validate() {
         ErrorReport er = new ErrorReport();
-//        gates.stream().filter().forEach(;
         
-        // Step 4: finish by reporting collected errors
+        // setting up 
+        ArrayList<String> gateNames = new ArrayList<String>();
+        ArrayList<Gate> inputGates = new ArrayList<Gate>();
+        ArrayList<Gate> outputGates = new ArrayList<Gate>();
+        
+        gates.stream().forEach(gate -> {
+            gateNames.add(gate.getGateId());
+            if ((gate.type.equals("input"))) {
+                inputGates.add(gate);
+            }
+             if ((gate.type.equals("output"))) {
+                outputGates.add(gate);
+            }
+        });
+ 
+        // Constraint 1: Each Gate has a unique id
+        HashSet<String> gateNameSet = new HashSet<String>();
+        for (String name : gateNames) {
+            if (!gateNameSet.add(name)) {
+                er.add("Duplicate Gate Id is Found");
+            }
+        }
+
+       // Constraint 2: Circuit has >= 1 gates
+        if (gates.size() < 1) {
+            er.add("Circuit is missing gates");
+        }
+        // Constraint 3: Circuit has >= 1 wire
+        if (wires.size() < 1) {
+            er.add("Circuit is missing wires");
+        }
+
+        // Constraint 4: All wires are properly connected
+        wires.stream().forEach(wire -> {
+            if (wire.to == null || wire.from == null) {
+                er.add("Wire is missing either a to or from pin");
+            }
+            if (wire.to.equals(wire.from)) {
+                er.add("Wire connects to the same two gates");
+            }
+            if (wire.from.type.equals("output")) {
+                er.add("Wire's from gate is an ouput");
+            }
+            if (wire.to.type.equals("input")) {
+                er.add("Wire's to gate is an input");
+            } 
+        });
+        
+        // Constraint 5: Circuit has >= 1 input pins
+        if (inputGates.size() < 1) {
+            er.add("Circuit is missing an input gate");
+        }
+
+        // Constraint 6: Circuit has >= 1 output pins
+        if (outputGates.size() < 1) {
+            er.add("Circuit is missing an output gate");
+        }
+        
+        // Finish by reporting collected errors
         er.printReportEH(System.out);
-        
+
         if (!er.printReport(System.out)) {
             System.out.format("All constraints satisfied for this cicuit");
         }
