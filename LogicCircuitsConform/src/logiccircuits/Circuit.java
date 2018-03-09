@@ -95,15 +95,12 @@ public class Circuit {
             er.add("Circuit is missing wires");
         }
 
-        // Constraint 4: All wires are properly connected
+        // Constraint 4-6: All wires are properly connected
         ArrayList<Gate> inputGates = new ArrayList<Gate>();
         ArrayList<Gate> outputGates = new ArrayList<Gate>();
         wires.stream().forEach(wire -> {
             if (wire.to == null || wire.from == null) {
                 er.add("Wire is missing either a to or from pin");
-            }
-            if (wire.to.equals(wire.from)) {
-                er.add("Wire connects to the same two gates");
             }
 
             if (wire.from.type.equals("output")) {
@@ -130,12 +127,12 @@ public class Circuit {
             }
         });
 
-        // Constraint 5: Circuit has >= 1 input pins
+        // Constraint 7: Circuit has >= 1 input pins
         if (inputGates.size() < 1) {
             er.add("Circuit is missing an input gate");
         }
 
-        // Constraint 6: Circuit has >= 1 output pins
+        // Constraint 8: Circuit has >= 1 output pins
         if (outputGates.size() < 1) {
             er.add("Circuit is missing an output gate");
         }
