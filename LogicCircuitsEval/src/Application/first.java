@@ -38,6 +38,7 @@ public class first {
         new Wire(xx,and, α);
 
         xx.print();
+        xx.validate();
         
         for (int i = 0; i < 16; i++) {
             xx.initValues();
@@ -63,9 +64,13 @@ public class first {
             }
         }
         
+        
+        if (xx.isConformed()) {
+            System.out.format("\nAll constraints satisfied for this cicuit.");
+        }
         // if we get this far all evaluations are good
         System.out.println();
-        System.out.println("All Good!");
+        System.out.println("Evaluation all Good!");
     }
 
     static boolean z(int i, int mod) {
