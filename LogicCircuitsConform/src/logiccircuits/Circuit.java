@@ -2,7 +2,7 @@ package logiccircuits;
 
 import java.util.List;
 import java.util.LinkedList;
-
+import PrologDB.*;
 public class Circuit {
 
     String name;
@@ -16,7 +16,7 @@ public class Circuit {
         gates = new LinkedList<>();
         wires = new LinkedList<>();
     }
-
+    
     public int getGateNum(String type) {
         switch (type) {
             case "and":
@@ -33,7 +33,7 @@ public class Circuit {
                 return -1;
         }
     }
-
+    
     public void addOneGate(String type) {
         switch (type) {
             case "and":
@@ -53,10 +53,10 @@ public class Circuit {
                 break;
         }
     }
-
+            
     public void print() {
         System.out.println("printing circuit tables...");
-
+        
         System.out.println("Gates:");
         gates.stream().forEach(gate -> {
             if (!gate.type.equals("input") && !gate.type.equals("output")) {
@@ -68,31 +68,21 @@ public class Circuit {
                 gate.print();
             }
         });
-
+        
         System.out.println("\nWires:");
         wires.stream().forEach(wire -> {
             wire.print();
         });
     }
-
     public void validate() {
         // call logicConform logic here
 
         ErrorReport er = new ErrorReport();
-        gates.stream().filter().forEach();
-// Constraint 1: all gates have unique names
-// Constraint 2: verify that all input pins and output pins of 
-//               every gate is used (is connected to a wire)
-// Constraint 3: verify that all wires are properly connected
-//               wire connects an output pin to an input pin.
-// Constraint 4: Circuit has >1 input pins. 
-// Constraint 5: Circuit has >1 output pins.
-// Constraint 6: Circuit must have a list of defined gates (at least length one)
-// Constraint 7: Circuit must have a list of defined wires (at least length one)
-
+//        gates.stream().filter().forEach(;
+        
         // Step 4: finish by reporting collected errors
         er.printReportEH(System.out);
-
+        
         if (!er.printReport(System.out)) {
             System.out.format("All constraints satisfied for this cicuit");
         }
