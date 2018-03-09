@@ -12,7 +12,6 @@ public class Input extends Gate {
     
     @Override
     public boolean get() {
-//        System.out.println("\nIm in Input get().");
         if (super.getValue() == Value.U) {
             throw Err.toss("Input gate %s value is unknown.", name);
         }

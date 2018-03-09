@@ -12,7 +12,6 @@ public class Output extends Gate {
     
     @Override
     public boolean get() {
-//        System.out.println("\nIm in Output get().");
         Gate gin = super.findInputGate(super.getGid(), 1);
         return gin.get();
     }

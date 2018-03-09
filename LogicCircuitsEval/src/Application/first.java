@@ -37,7 +37,7 @@ public class first {
         new Wire(xx,or,β);
         new Wire(xx,and, α);
 
-//        xx.print();
+        xx.print();
         
         for (int i = 0; i < 16; i++) {
             xx.initValues();

@@ -39,6 +39,6 @@ public abstract class Gate {
     }
     
     public void print() {
-        System.out.println(this.gid + " " + this.name + " " + Integer.toString(this.nInputPins) + " " + Integer.toString(this.nOutputPins) + " " + this.type);
+        System.out.format("gate(%s,%s,%d,%d).\n", this.name, this.type, this.nInputPins, this.nOutputPins);
     }
 }

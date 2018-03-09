@@ -15,21 +15,14 @@ public class Nor extends Gate {
     // you add more
     @Override
     public boolean get() {
-//        System.out.println("\nIm in Nor get().");
-        if (super.getValue() != Value.U) {
-            return super.getValue() == Value.T;
-        } else {
-            boolean res = false;
-            for (int i = 1; i <= this.nInputs; i ++) {
-                Gate gin = super.findInputGate(super.getGid(), i);
-                res = res || gin.get();
-                if (res == true) {
-//                    System.out.println("Nor eval: false\n");
-                    return false;
-                }
+        boolean res = false;
+        for (int i = 1; i <= this.nInputs; i ++) {
+            Gate gin = super.findInputGate(super.getGid(), i);
+            res = res || gin.get();
+            if (res == true) {
+                return false;
             }
-//            System.out.println("Nor eval: true\n");
-            return true;
         }
+        return true;
     }
 }

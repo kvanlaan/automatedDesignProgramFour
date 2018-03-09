@@ -15,21 +15,14 @@ public class And extends Gate {
     // you add more
     @Override
     public boolean get() {
-//        System.out.println("\nIm in And get().");
-        if (super.getValue() != Value.U) {
-            return super.getValue() == Value.T;
-        } else {
-            boolean res = true;
-            for (int i = 1; i <= this.nInputs; i ++) {
-                Gate gin = super.findInputGate(super.getGid(), i);
-                res = res && gin.get();
-                if (res == false) {
-//                    System.out.println("And eval: false\n");
-                    return false;
-                }
+        boolean res = true;
+        for (int i = 1; i <= this.nInputs; i ++) {
+            Gate gin = super.findInputGate(super.getGid(), i);
+            res = res && gin.get();
+            if (res == false) {
+                return false;
             }
-//            System.out.println("And eval: true\n");
-            return true;
         }
-    }
+        return true;
+}
 }
