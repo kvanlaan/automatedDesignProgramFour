@@ -80,75 +80,66 @@ public class Circuit {
 
     public void validate() {
         ErrorReport er = new ErrorReport();
-
-        // setting up
-        ArrayList<Gate> gatesArray = new ArrayList<Gate>();
-        gates.stream().forEach(gate -> gatesArray.add(gate));
-
-        // constraint 1: all gates have unique names
+        
+        // setting up 
         ArrayList<String> gateNames = new ArrayList<String>();
-        gates.stream().forEach(gate -> gateNames.add(gate.getGateId()));
-
+        ArrayList<Gate> inputGates = new ArrayList<Gate>();
+        ArrayList<Gate> outputGates = new ArrayList<Gate>();
+        
+        gates.stream().forEach(gate -> {
+            gateNames.add(gate.getGateId());
+            if ((gate.type.equals("input"))) {
+                inputGates.add(gate);
+            }
+             if ((gate.type.equals("output"))) {
+                outputGates.add(gate);
+            }
+        });
+ 
+        // Constraint 1: Each Gate has a unique id
         HashSet<String> gateNameSet = new HashSet<String>();
         for (String name : gateNames) {
             if (!gateNameSet.add(name)) {
-                // rule is that gates must have unique id
                 er.add("Duplicate Gate Id is Found");
             }
         }
 
-        // Constraint 2: > Circuit must have a list of defined gates (at least length one)
+       // Constraint 2: Circuit has >= 1 gates
         if (gates.size() < 1) {
             er.add("Circuit is missing gates");
         }
-        // Constraint 3: Circuit must have a list of defined wires (at least length one)
+        // Constraint : Circuit has >= 1 wire
         if (wires.size() < 1) {
             er.add("Circuit is missing wires");
         }
 
-        // Constraint 4: verify that all wires are properly connected
-        // wire connects an output pin to an input pin.
-        ArrayList<Wire> wireArray = new ArrayList<Wire>();
-        wires.stream().forEach(wire -> wireArray.add(wire));
-
+        // Constraint 3: All wires are properly connected
         wires.stream().forEach(wire -> {
             if (wire.to == null || wire.from == null) {
                 er.add("Wire is missing either a to or from pin");
             }
-            
-             if (wire.to.equals(wire.from)) {
-                er.add("Wire connects to same gates");
+            if (wire.to.equals(wire.from)) {
+                er.add("Wire connects to the same two gates");
             }
-                if (wire.from.type.equals("output")) {
-                    er.add("Wire's from gate is an ouput");
-                }
-                if (wire.to.type.equals("input")) {
-                    er.add("Wire's to gate is an input");
-                }
-        });
-        // Constraint 5: Circuit has >1 input pins
-        ArrayList<Gate> inputGates = new ArrayList<Gate>();
-
-        gates.stream().forEach(gate -> {
-            if ((gate.type.equals("input"))) {
-                inputGates.add(gate);
+            if (wire.from.type.equals("output")) {
+                er.add("Wire's from gate is an ouput");
             }
+            if (wire.to.type.equals("input")) {
+                er.add("Wire's to gate is an input");
+            } 
         });
+        
+        // Constraint 4: Circuit has >= 1 input pins
         if (inputGates.size() < 1) {
             er.add("Circuit is missing an input gate");
         }
 
-        // Constraint 6:   Circuit has >1 output pins
-        ArrayList<Gate> outputGates = new ArrayList<Gate>();
-        gates.stream().forEach(gate -> {
-            if ((gate.type.equals("output"))) {
-                outputGates.add(gate);
-            }
-        });
+        // Constraint 5: Circuit has >= 1 output pins
         if (outputGates.size() < 1) {
             er.add("Circuit is missing an output gate");
         }
-        // Step 4: finish by reporting collected errors
+        
+        // Finish by reporting collected errors
         er.printReportEH(System.out);
 
         if (!er.printReport(System.out)) {
