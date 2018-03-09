@@ -27,6 +27,9 @@ public abstract class Gate {
         } else {
             this.circuit.addOneGate(this.type);
             int idx = this.circuit.getGateNum(this.type);
+            if (this.type.equals("nand")) {
+                return this.name.substring(0,2) + Integer.toString(idx);
+            }
             return this.name.charAt(0) + Integer.toString(idx);
         }
     }
@@ -44,7 +47,7 @@ public abstract class Gate {
     }
     
     public void print() {
-        System.out.println(this.gid + " " + this.name + " " + Integer.toString(this.nInputPins) + " " + Integer.toString(this.nOutputPins) + " " + this.type);
+        System.out.format("gate(%s,%s,%d,%d).\n", this.name, this.type, this.nInputPins, this.nOutputPins);
     }
     
     public void setValue(Value v) {

@@ -54,7 +54,7 @@ public class Circuit {
         }
     }
 
-    public void print() {
+    public void printTables() {
         System.out.println("printing circuit tables...");
 
         System.out.println("Gates:");
@@ -70,6 +70,20 @@ public class Circuit {
         });
 
         System.out.println("\nWires:");
+        wires.stream().forEach(wire -> {
+            wire.print();
+        });
+    }
+    
+    public void print() {
+        System.out.format("circuit(%s).\n", this.name);
+        
+        System.out.println();
+        gates.stream().forEach(gate -> {
+            gate.print();
+        });
+        
+        System.out.println();
         wires.stream().forEach(wire -> {
             wire.print();
         });
