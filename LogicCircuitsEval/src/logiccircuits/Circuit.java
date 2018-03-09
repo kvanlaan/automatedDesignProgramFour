@@ -53,27 +53,6 @@ public class Circuit {
                 break;
         }
     }
-
-    public void printTables() {
-        System.out.println("printing circuit tables...");
-
-        System.out.println("Gates:");
-        gates.stream().forEach(gate -> {
-            if (!gate.type.equals("input") && !gate.type.equals("output")) {
-                gate.print();
-            }
-        });
-        gates.stream().forEach(gate -> {
-            if (gate.type.equals("input") || gate.type.equals("output")) {
-                gate.print();
-            }
-        });
-
-        System.out.println("\nWires:");
-        wires.stream().forEach(wire -> {
-            wire.print();
-        });
-    }
     
     public void print() {
         System.out.format("circuit(%s).\n", this.name);

@@ -42,6 +42,6 @@ public class Wire {
     }
     
     public void print() {
-        System.out.println(this.wid + " " + from.getName() + " " + Integer.toString(fromPin) + " " + to.getName() + " " + Integer.toString(toPin));
+        System.out.format("wire(%s,%d,%s,%d).\n", this.from.getName(), this.fromPin, this.to.getName(), this.toPin);
     }
 }

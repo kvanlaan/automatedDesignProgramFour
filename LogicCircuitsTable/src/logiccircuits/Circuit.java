@@ -55,21 +55,14 @@ public class Circuit {
     }
 
     public void print() {
-        System.out.println("printing circuit tables...");
-
-        System.out.println("Gates:");
+        System.out.format("circuit(%s).\n", this.name);
+        
+        System.out.println();
         gates.stream().forEach(gate -> {
-            if (!gate.type.equals("input") && !gate.type.equals("output")) {
-                gate.print();
-            }
+            gate.print();
         });
-        gates.stream().forEach(gate -> {
-            if (gate.type.equals("input") || gate.type.equals("output")) {
-                gate.print();
-            }
-        });
-
-        System.out.println("\nWires:");
+        
+        System.out.println();
         wires.stream().forEach(wire -> {
             wire.print();
         });
