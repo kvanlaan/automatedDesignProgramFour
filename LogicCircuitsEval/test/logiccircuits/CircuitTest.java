@@ -67,7 +67,7 @@ public class CircuitTest {
     }
 
     /********* XX ***************************/
-    
+    @Ignore
     @Test
     public void XX() {
         RegTest.Utility.redirectStdOut(testout);
@@ -134,7 +134,7 @@ public class CircuitTest {
     }
 
     /*--------------------------YY------------------------*/
-
+    @Ignore
     @Test
     public void yy() {
         RegTest.Utility.redirectStdOut(testout);
@@ -231,6 +231,7 @@ public class CircuitTest {
 
     
     /*--------------------------ZZ------------------------*/
+    
     @Test
     public void zz() {
         RegTest.Utility.redirectStdOut(testout);
