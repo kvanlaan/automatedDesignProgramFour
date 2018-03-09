@@ -98,7 +98,7 @@ public class CircuitTest {
         new Wire(xx,and,alpha);
 
         // validate
-//        xx.validate();
+        xx.validate();
         xx.print();
 
         BiConsumer<Circuit, fourWay> setInputs = (x, y) -> {
@@ -185,7 +185,7 @@ public class CircuitTest {
         new Wire(yy,a1,beta);
         new Wire(yy,a4,gamma);
         
-//        yy.validate();
+        yy.validate();
         yy.print();
 
         BiConsumer<Circuit, fourWay> setInputs = (x, y) -> {
@@ -252,7 +252,7 @@ public class CircuitTest {
         new Wire(zz,o1,na1,2);
         new Wire(zz,na1,alpha);
   
-//        zz.validate();
+        zz.validate();
         zz.print();
 
         BiConsumer<Circuit, fourWay> setInputs = (x, y) -> {

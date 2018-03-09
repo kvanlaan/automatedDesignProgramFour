@@ -21,7 +21,7 @@ public abstract class Gate {
         this.addToCircuitTable(this.circuit);
     }
     
-    private String getGateId() {
+    protected String getGateId() {
         if ((this.type.equals("input")) || (this.type.equals("output"))) {
             return this.name.toLowerCase();
         } else {

@@ -1,7 +1,10 @@
 package logiccircuits;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedList;
+import PrologDB.*;
+import java.util.HashSet;
 
 public class Circuit {
 
@@ -9,6 +12,7 @@ public class Circuit {
     List<Gate> gates;
     List<Wire> wires;
     int num_and = 0, num_or = 0, num_nand = 0, num_nor = 0, num_inv = 0;
+    boolean conform = false;
 
     // fill in the rest
     public Circuit(String s) {
@@ -66,6 +70,87 @@ public class Circuit {
         wires.stream().forEach(wire -> {
             wire.print();
         });
+    }
+    
+    public void validate() {
+        ErrorReport er = new ErrorReport();
+
+        // Constraint 1: Each Gate has a unique id
+        ArrayList<String> gateNames = new ArrayList<String>();
+        gates.stream().forEach(gate -> {
+            gateNames.add(gate.getGateId());
+        });
+        HashSet<String> gateNameSet = new HashSet<String>();
+        for (String name : gateNames) {
+            if (!gateNameSet.add(name)) {
+                er.add("Duplicate Gate Id is Found");
+            }
+        }
+
+        // Constraint 2: Circuit has >= 1 gates
+        if (gates.size() < 1) {
+            er.add("Circuit is missing gates");
+        }
+        // Constraint 3: Circuit has >= 1 wire
+        if (wires.size() < 1) {
+            er.add("Circuit is missing wires");
+        }
+
+        // Constraint 4: All wires are properly connected
+        ArrayList<Gate> inputGates = new ArrayList<Gate>();
+        ArrayList<Gate> outputGates = new ArrayList<Gate>();
+        wires.stream().forEach(wire -> {
+            if (wire.to == null || wire.from == null) {
+                er.add("Wire is missing either a to or from pin");
+            }
+            if (wire.to.equals(wire.from)) {
+                er.add("Wire connects to the same two gates");
+            }
+
+            if (wire.from.type.equals("output")) {
+                er.add("Wire's from gate is an ouput");
+            }
+            if (wire.to.type.equals("input")) {
+                er.add("Wire's to gate is an input");
+            }
+
+            if (wire.from.type.equals("input")) {
+                inputGates.add(wire.from);
+            }
+
+            if (wire.to.type.equals("input")) {
+                inputGates.add(wire.to);
+            }
+
+            if (wire.from.type.equals("output")) {
+                outputGates.add(wire.from);
+            }
+
+            if (wire.to.type.equals("output")) {
+                outputGates.add(wire.to);
+            }
+        });
+
+        // Constraint 5: Circuit has >= 1 input pins
+        if (inputGates.size() < 1) {
+            er.add("Circuit is missing an input gate");
+        }
+
+        // Constraint 6: Circuit has >= 1 output pins
+        if (outputGates.size() < 1) {
+            er.add("Circuit is missing an output gate");
+        }
+
+        // Finish by reporting collected errors
+        er.printReportEH(System.out);
+
+        if (!er.printReport(System.out)) {
+            this.conform = true;
+        }
+    }
+    
+    public boolean isConformed() {
+        return this.conform;
     }
     
     public void initValues() {
