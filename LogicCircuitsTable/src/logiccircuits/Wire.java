@@ -1,11 +1,10 @@
 package logiccircuits;
 
-import javafx.util.Pair;
-
 public class Wire {
     Circuit circuit;
     Gate from, to;
     int fromPin, toPin;
+    String wid;
 
     // fill in the rest
     public Wire(Circuit xx, Gate from, int fromPin, Gate to, int toPin) {
@@ -16,6 +15,7 @@ public class Wire {
         this.to = to;
         this.toPin = toPin;
         
+        this.wid = this.getWireId();
         addToCircuitTable(this.circuit);
     }
     
@@ -31,14 +31,17 @@ public class Wire {
         this(circuit, from, 1, to, 1);
     }
     
-    private void addToCircuitTable(Circuit xx) {
+    private String getWireId() {
         int idx;
-        idx = xx.wires.size() + 1;
-        String wid = "w" + Integer.toString(idx);
-        xx.wires.add(new Pair(wid, this));
+        idx = this.circuit.wires.size() + 1;
+        return wid = "w" + Integer.toString(idx);
+    }
+    
+    private void addToCircuitTable(Circuit xx) {
+        xx.wires.add(this);
     }
     
     public void print() {
-        System.out.println(from.getName() + " " + Integer.toString(fromPin) + " " + to.getName() + " " + Integer.toString(toPin));
+        System.out.println(this.wid + " " + from.getName() + " " + Integer.toString(fromPin) + " " + to.getName() + " " + Integer.toString(toPin));
     }
 }

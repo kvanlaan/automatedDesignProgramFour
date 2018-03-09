@@ -1,14 +1,13 @@
 package logiccircuits;
 
-import javafx.util.Pair;
 import java.util.List;
 import java.util.LinkedList;
 
 public class Circuit {
 
     String name;
-    List<Pair<String, Gate>> gates;
-    List<Pair<String, Wire>> wires;
+    List<Gate> gates;
+    List<Wire> wires;
     int num_and = 0, num_or = 0, num_nand = 0, num_nor = 0, num_inv = 0;
 
     // fill in the rest
@@ -59,27 +58,20 @@ public class Circuit {
         System.out.println("printing circuit tables...");
         
         System.out.println("Gates:");
-        gates.stream().forEach((pair) -> {
-            Gate gate = (Gate) pair.getValue();
+        gates.stream().forEach(gate -> {
             if (!gate.type.equals("input") && !gate.type.equals("output")) {
-                System.out.print(pair.getKey() + " ");
                 gate.print();
             }
         });
-        gates.stream().forEach((pair) -> {
-            Gate gate = (Gate) pair.getValue();
+        gates.stream().forEach(gate -> {
             if (gate.type.equals("input") || gate.type.equals("output")) {
-                System.out.print(pair.getKey() + " ");
                 gate.print();
             }
         });
         
         System.out.println("\nWires:");
-        wires.stream().map((pair) -> {
-            System.out.print(pair.getKey() + " ");
-            return pair;
-        }).forEach((pair) -> {
-            ((Wire) pair.getValue()).print();
+        wires.stream().forEach(wire -> {
+            wire.print();
         });
     }
 }

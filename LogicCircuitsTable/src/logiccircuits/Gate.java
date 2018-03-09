@@ -1,12 +1,11 @@
 package logiccircuits;
 
-import javafx.util.Pair;
-
 public abstract class Gate {
     public final String name;
     int nInputPins, nOutputPins;
     String type;
     Circuit circuit;
+    String gid;
     
     protected Gate(Circuit circuit, String name, int nInputPins, int nOutputPins, String type) {
         this.circuit = circuit;
@@ -17,6 +16,7 @@ public abstract class Gate {
         this.type = type;
         
         // fill in
+        this.gid = this.getGateId();
         this.addToCircuitTable(this.circuit);
     }
     
@@ -31,7 +31,7 @@ public abstract class Gate {
     }
     
     private void addToCircuitTable(Circuit xx) {
-        xx.gates.add(new Pair(this.getGateId(), this));
+        xx.gates.add(this);
     }
     
     public String getName() {
@@ -39,6 +39,6 @@ public abstract class Gate {
     }
     
     public void print() {
-        System.out.println(this.name + " " + Integer.toString(this.nInputPins) + " " + Integer.toString(this.nOutputPins) + " " + this.type);
+        System.out.println(this.gid + " " + this.name + " " + Integer.toString(this.nInputPins) + " " + Integer.toString(this.nOutputPins) + " " + this.type);
     }
 }
