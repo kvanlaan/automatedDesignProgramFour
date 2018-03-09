@@ -3,9 +3,9 @@ circuit(YY).
 gate(A,input,0,1).
 gate(B,input,0,1).
 gate(C,input,0,1).
-gate(?,output,1,0).
-gate(?,output,1,0).
-gate(?,output,1,0).
+gate(alpha,output,1,0).
+gate(beta,output,1,0).
+gate(gamma,output,1,0).
 gate(i1,inv,1,1).
 gate(i2,inv,1,1).
 gate(i3,inv,1,1).
@@ -34,6 +34,6 @@ wire(a1,1,o1,1).
 wire(a2,1,o1,2).
 wire(a3,1,o1,3).
 wire(a4,1,o1,4).
-wire(o1,1,?,1).
-wire(a1,1,?,1).
-wire(a4,1,?,1).
+wire(o1,1,alpha,1).
+wire(a1,1,beta,1).
+wire(a4,1,gamma,1).

@@ -4,8 +4,8 @@ gate(A,input,0,1).
 gate(B,input,0,1).
 gate(C,input,0,1).
 gate(D,input,0,1).
-gate(?,output,1,0).
-gate(?,output,1,0).
+gate(alpha,output,1,0).
+gate(beta,output,1,0).
 gate(nor,nor,2,1).
 gate(inv,inv,1,1).
 gate(and,and,3,1).
@@ -19,5 +19,5 @@ wire(D,1,or,2).
 wire(C,1,inv,1).
 wire(inv,1,and,2).
 wire(or,1,and,3).
-wire(or,1,?,1).
-wire(and,1,?,1).
+wire(or,1,beta,1).
+wire(and,1,alpha,1).

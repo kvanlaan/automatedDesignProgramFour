@@ -10,6 +10,7 @@ import logiccircuits.library.Or;
 import logiccircuits.library.Output;
 import logiccircuits.library.nAnd;
 import org.junit.Test;
+import org.junit.Ignore;
 import static org.junit.Assert.*;
 
 public class CircuitTest {
@@ -53,7 +54,7 @@ public class CircuitTest {
             boolean computed = g.get();
             boolean correct = greek.test(f);
             if (computed != correct) {
-                System.out.format("experiment %s #%d failed", f, i);
+                System.out.format("experiment %s #%d failed\n", f, i);
                 succeed = false;
             }
         }
@@ -77,8 +78,8 @@ public class CircuitTest {
         Gate B = new Input(xx,"B");
         Gate C = new Input(xx,"C");
         Gate D = new Input(xx,"D");
-        Gate α = new Output(xx,"α");
-        Gate β = new Output(xx,"β");
+        Gate alpha = new Output(xx,"alpha");
+        Gate beta = new Output(xx,"beta");
 
         Gate nor = new Nor(xx,"nor",2);
         Gate inv = new Inv(xx,"inv");
@@ -93,11 +94,11 @@ public class CircuitTest {
         new Wire(xx,C,inv);
         new Wire(xx,inv,and,2);
         new Wire(xx,or,and,3);
-        new Wire(xx,or,β);
-        new Wire(xx,and,α);
+        new Wire(xx,or,beta);
+        new Wire(xx,and,alpha);
 
         // validate
-        xx.validate();
+//        xx.validate();
         xx.print();
 
         BiConsumer<Circuit, fourWay> setInputs = (x, y) -> {
@@ -106,8 +107,8 @@ public class CircuitTest {
             C.set(y.c);
             D.set(y.d);
         };
-        testit(xx, f -> alphaXX(f), setInputs, α);
-        testit(xx, f -> betaXX(f), setInputs, β);
+        testit(xx, f -> alphaXX(f), setInputs, alpha);
+        testit(xx, f -> betaXX(f), setInputs, beta);
         RegTest.Utility.validate(testout, correct+"xx.txt", false);
     }
     
@@ -133,7 +134,7 @@ public class CircuitTest {
     }
 
     /*--------------------------YY------------------------*/
-    
+
     @Test
     public void yy() {
         RegTest.Utility.redirectStdOut(testout);
@@ -142,9 +143,9 @@ public class CircuitTest {
         Gate A = new Input(yy,"A");  
         Gate B = new Input(yy,"B");
         Gate C = new Input(yy,"C");
-        Gate α = new Output(yy,"α");
-        Gate β = new Output(yy,"β");
-        Gate δ = new Output(yy,"δ");
+        Gate alpha = new Output(yy,"alpha");
+        Gate beta = new Output(yy,"beta");
+        Gate gamma = new Output(yy,"gamma");
 
         Gate i1 = new Inv(yy,"i1");
         Gate i2 = new Inv(yy,"i2");
@@ -180,11 +181,11 @@ public class CircuitTest {
         new Wire(yy,a3,o1,3);
         new Wire(yy,a4,o1,4);
         
-        new Wire(yy,o1,α);
-        new Wire(yy,a1,β);
-        new Wire(yy,a4,δ);
+        new Wire(yy,o1,alpha);
+        new Wire(yy,a1,beta);
+        new Wire(yy,a4,gamma);
         
-        yy.validate();
+//        yy.validate();
         yy.print();
 
         BiConsumer<Circuit, fourWay> setInputs = (x, y) -> {
@@ -192,9 +193,9 @@ public class CircuitTest {
             B.set(y.b);
             C.set(y.c);
         };
-        testit(yy, f -> alphaYY(f), setInputs, α);
-        testit(yy, f -> betaYY(f), setInputs, β);
-        testit(yy, f -> gammaYY(f), setInputs, δ);
+        testit(yy, f -> alphaYY(f), setInputs, alpha);
+        testit(yy, f -> betaYY(f), setInputs, beta);
+        testit(yy, f -> gammaYY(f), setInputs, gamma);
         RegTest.Utility.validate(testout, correct+"yy.txt", false);
     }
     
@@ -238,7 +239,7 @@ public class CircuitTest {
         Gate A = new Input(zz,"A");  
         Gate B = new Input(zz,"B");
         Gate C = new Input(zz,"C");
-        Gate α = new Output(zz,"α");
+        Gate alpha = new Output(zz,"alpha");
 
         Gate i1 = new Inv(zz,"i1");
         Gate o1 = new Or(zz,"o1",2);
@@ -249,9 +250,9 @@ public class CircuitTest {
         new Wire(zz,C,o1,2);
         new Wire(zz,i1,na1,1);
         new Wire(zz,o1,na1,2);
-        new Wire(zz,na1,α);
+        new Wire(zz,na1,alpha);
   
-        zz.validate();
+//        zz.validate();
         zz.print();
 
         BiConsumer<Circuit, fourWay> setInputs = (x, y) -> {
@@ -259,7 +260,7 @@ public class CircuitTest {
             B.set(y.b);
             C.set(y.c);
         };
-        testit(zz, f -> alphaZZ(f), setInputs, α);
+        testit(zz, f -> alphaZZ(f), setInputs, alpha);
         RegTest.Utility.validate(testout, correct+"zz.txt", false);
     }
     
