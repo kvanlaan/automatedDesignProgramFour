@@ -74,27 +74,4 @@ public class Circuit {
             wire.print();
         });
     }
-
-    public void validate() {
-        // call logicConform logic here
-
-        ErrorReport er = new ErrorReport();
-        gates.stream().filter().forEach();
-// Constraint 1: all gates have unique names
-// Constraint 2: verify that all input pins and output pins of 
-//               every gate is used (is connected to a wire)
-// Constraint 3: verify that all wires are properly connected
-//               wire connects an output pin to an input pin.
-// Constraint 4: Circuit has >1 input pins. 
-// Constraint 5: Circuit has >1 output pins.
-// Constraint 6: Circuit must have a list of defined gates (at least length one)
-// Constraint 7: Circuit must have a list of defined wires (at least length one)
-
-        // Step 4: finish by reporting collected errors
-        er.printReportEH(System.out);
-
-        if (!er.printReport(System.out)) {
-            System.out.format("All constraints satisfied for this cicuit");
-        }
-    }
 }
