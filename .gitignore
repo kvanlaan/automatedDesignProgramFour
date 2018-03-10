@@ -5,3 +5,6 @@
 /LogicCircuitsConform/build/
 /LogicCircuitsEval/nbproject/private/
 /LogicCircuitsEval/build/
+/LogicCircuitsEval/dist/
+/LogicCircuitsBase/dist/
+/LogicCircuitsBeautify/dist/
